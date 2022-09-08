@@ -6,34 +6,33 @@ import {
   InputLabel,
   MenuItem,
   SelectChangeEvent,
+  Button,
 } from "@mui/material"
-import { useGetAllPokemonQuery } from "./generated/graphql"
-import { QuerySelection } from "./components/QuerySelection"
-import { QueryResultList } from "./components/QueryResultList"
+import { useGetAllPokemonLazyQuery } from "./generated/graphql"
+import { PokemonQuery } from "./components/PokemonQuery"
 
 const App = (): React.ReactElement => {
   const [limit, setLimit] = useState("60")
   const [queryData, setQueryData] = useState({})
   const [selectedQueryHook, setSelectedQueryHook] = useState(
-    () => useGetAllPokemonQuery,
+    () => useGetAllPokemonLazyQuery,
   )
 
-  const { data, loading, error } = selectedQueryHook({
+  const [getPokemon, { data, loading, error }] = selectedQueryHook({
     variables: { limit: parseInt(limit) },
   })
 
-  useEffect(() => {
-    console.log(data)
-  })
+  const handleClick = (e: React.MouseEvent): void => {}
 
-  const handleChange = (e: SelectChangeEvent<string>) => {
+  const handleChange = (e: SelectChangeEvent<string>): void => {
     setLimit(e.target.value)
   }
 
   return (
     <Container className="App">
       <h1> Pokebrowser </h1>
-      <QuerySelection />
+      {/* <QuerySelection /> */}
+      <Button> Run Query </Button>
       <FormControl>
         <InputLabel id="limit-select-label">Limit</InputLabel>
         <Select
@@ -49,13 +48,7 @@ const App = (): React.ReactElement => {
         </Select>
       </FormControl>
       <br />
-      {loading ? (
-        "Loading..."
-      ) : error ? (
-        error.message
-      ) : (
-        <QueryResultList data={data} />
-      )}
+      <PokemonQuery limit={parseInt(limit)} />
     </Container>
   )
 }

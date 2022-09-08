@@ -1,8 +1,8 @@
 import React from "react"
-import { GetAllPokemonQuery } from "../generated/graphql"
+import { GetAllPokemonQuery, PokemonByTypeQuery } from "../generated/graphql"
 
 interface QueryResultListProps {
-  data: GetAllPokemonQuery | undefined
+  data: GetAllPokemonQuery | PokemonByTypeQuery
 }
 
 export const QueryResultList = ({ data }: QueryResultListProps) => {
