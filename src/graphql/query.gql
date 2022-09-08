@@ -1,0 +1,11 @@
+query GetAllPokemon($limit: Int!) {
+  pokemon_v2_pokemon(limit: $limit) {
+    base_experience
+    height
+    id
+    is_default
+    name
+    order
+    pokemon_species_id
+  }
+}
