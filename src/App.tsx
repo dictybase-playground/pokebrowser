@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import {
   Container,
   Select,
@@ -8,10 +8,17 @@ import {
   SelectChangeEvent,
 } from "@mui/material"
 import { useGetAllPokemonQuery } from "./generated/graphql"
+import { QuerySelection } from "./components/QuerySelection"
+import { QueryResultList } from "./components/QueryResultList"
 
-function App() {
+const App = (): React.ReactElement => {
   const [limit, setLimit] = useState("60")
-  const { data } = useGetAllPokemonQuery({
+  const [queryData, setQueryData] = useState({})
+  const [selectedQueryHook, setSelectedQueryHook] = useState(
+    () => useGetAllPokemonQuery,
+  )
+
+  const { data, loading, error } = selectedQueryHook({
     variables: { limit: parseInt(limit) },
   })
 
@@ -26,6 +33,7 @@ function App() {
   return (
     <Container className="App">
       <h1> Pokebrowser </h1>
+      <QuerySelection />
       <FormControl>
         <InputLabel id="limit-select-label">Limit</InputLabel>
         <Select
@@ -40,11 +48,14 @@ function App() {
           <MenuItem value={150}>150</MenuItem>
         </Select>
       </FormControl>
-      <ul>
-        {data?.pokemon_v2_pokemon.map((pokemon) => {
-          return <li key={pokemon.id}>{pokemon.name}</li>
-        })}
-      </ul>
+      <br />
+      {loading ? (
+        "Loading..."
+      ) : error ? (
+        error.message
+      ) : (
+        <QueryResultList data={data} />
+      )}
     </Container>
   )
 }
