@@ -1,11 +1,10 @@
-import React from "react"
 import { GetAllPokemonQuery, PokemonByTypeQuery } from "../generated/graphql"
 
-interface QueryResultListProps {
+interface PokemonDisplayProps {
   data: GetAllPokemonQuery | PokemonByTypeQuery
 }
 
-export const QueryResultList = ({ data }: QueryResultListProps) => {
+export const PokemonDisplay = ({ data }: PokemonDisplayProps) => {
   return (
     <ul>
       {data?.pokemon_v2_pokemon.map((pokemon) => {

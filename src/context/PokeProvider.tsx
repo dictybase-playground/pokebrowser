@@ -1,9 +1,4 @@
-import React, { useState, createContext, useEffect } from "react"
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client"
-import {
-  useGetAllPokemonQuery,
-  GetAllPokemonQueryResult,
-} from "../generated/graphql"
 
 const client = new ApolloClient({
   uri: "https://beta.pokeapi.co/graphql/v1beta",
@@ -14,8 +9,8 @@ interface PokeProviderProps {
   children: React.ReactNode
 }
 
-export const PokeProvider = ({
-  children,
-}: PokeProviderProps): React.ReactElement => {
+export const PokeProvider = ({ children }: PokeProviderProps) => {
   return <ApolloProvider client={client}>{children}</ApolloProvider>
 }
+
+//

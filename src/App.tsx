@@ -1,9 +1,6 @@
 import React, { useState } from "react"
 import { Container } from "@mui/material"
 import { PokemonQuery } from "./components/PokemonQuery"
-import { PokemonQueryPage } from "./pages/PokemonQueryPage"
-import { PokemonQueryByType } from "./components/PokemonQueryByType"
-import { PokemonQueryByTypePage } from "./pages/PokemonQueryByTypePage"
 import { Selector } from "./components/Selector"
 
 const pokemonTypes: Array<string> = [
@@ -27,9 +24,9 @@ const pokemonTypes: Array<string> = [
   "fairy",
 ]
 
-const limits: Array<string> = ["60", "90", "120", "150"]
+const limits = ["60", "90", "120", "150"]
 
-const App = (): React.ReactElement => {
+const App = () => {
   const [limit, setLimit] = useState("60")
   const [type, setType] = useState("")
 

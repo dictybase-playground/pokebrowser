@@ -1,6 +1,5 @@
-import React from "react"
 import { useGetAllPokemonQuery } from "../generated/graphql"
-import { QueryResultList } from "./QueryResultList"
+import { PokemonDisplay } from "./PokemonDisplay"
 interface PokemonQueryProps {
   limit: number | string
 }
@@ -18,7 +17,7 @@ export const PokemonQuery = ({ limit }: PokemonQueryProps) => {
     <>
       {loading ? "Loading" : <></>}
       {error ? "Error" : <></>}
-      {data ? <QueryResultList data={data} /> : <></>}
+      {data ? <PokemonDisplay data={data} /> : <></>}
     </>
   )
 }
