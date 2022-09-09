@@ -34,11 +34,13 @@ const App = (): React.ReactElement => {
     <Container className="App">
       <h1> Pokebrowser </h1>
       <Selector
+        label="Limit"
         values={limits}
         initialValue={limits[0]}
         setSelected={setLimit}
       />
       <Selector
+        label="Type"
         values={pokemonTypes}
         initialValue={pokemonTypes[0]}
         setSelected={setType}

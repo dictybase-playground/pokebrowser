@@ -1,5 +1,11 @@
 import React from "react"
-import { FormControl, InputLabel, Select, MenuItem } from "@mui/material"
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
+} from "@mui/material"
 import Apollo from "@apollo/client"
 
 interface QuerySelectorProps {

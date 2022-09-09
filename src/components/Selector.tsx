@@ -8,37 +8,14 @@ import {
 } from "@mui/material"
 
 interface SelectorProps {
+  label: string
   initialValue: string
   values: string[]
   setSelected: React.Dispatch<React.SetStateAction<string>>
 }
 
-// interface PokemonTypeMap {
-//   [index: string]: string
-// }
-
-// const PokemonTypeMap: PokemonTypeMap = {
-//   NORMAL: "normal",
-//   FIGHTING: "fighting",
-//   FLYING: "flying",
-//   POISON: "poison",
-//   GROUND: "ground",
-//   ROCK: "rock",
-//   BUG: "bug",
-//   GHOST: "ghost",
-//   STEEL: "steel",
-//   FIRE: "fire",
-//   WATER: "water",
-//   GRASS: "grass",
-//   ELECTRIC: "electric",
-//   PSYCHIC: "psychic",
-//   ICE: "ice",
-//   DRAGON: "dragon",
-//   DARK: "dark",
-//   FAIRY: "fairy",
-// }
-
 export const Selector = ({
+  label,
   values,
   initialValue,
   setSelected,
@@ -46,16 +23,17 @@ export const Selector = ({
   const [currentValue, setCurrentValue] = useState(initialValue)
 
   const handleChange = (e: SelectChangeEvent<string>): void => {
+    setCurrentValue(e.target.value) //keeping its own current value state is probably redundant
     setSelected(e.target.value)
   }
 
   return (
     <FormControl>
-      <InputLabel id="type-select-label">Type</InputLabel>
+      <InputLabel id={`${label}-select-label`}>{label}</InputLabel>
       <Select
-        labelId="type-select-label"
-        id="type-select"
-        label="Type"
+        labelId={`${label}-select-label`}
+        id={`${label}-select`}
+        label={label}
         value={currentValue}
         onChange={handleChange}>
         {values.map((value) => (
