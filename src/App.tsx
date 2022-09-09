@@ -1,6 +1,9 @@
 import React, { useState } from "react"
 import { Container } from "@mui/material"
 import { PokemonQuery } from "./components/PokemonQuery"
+import { PokemonQueryPage } from "./pages/PokemonQueryPage"
+import { PokemonQueryByType } from "./components/PokemonQueryByType"
+import { PokemonQueryByTypePage } from "./pages/PokemonQueryByTypePage"
 import { Selector } from "./components/Selector"
 
 const pokemonTypes: Array<string> = [
