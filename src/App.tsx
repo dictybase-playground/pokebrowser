@@ -1,54 +1,50 @@
-import React, { useEffect, useState } from "react"
-import {
-  Container,
-  Select,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  SelectChangeEvent,
-  Button,
-} from "@mui/material"
-import { useGetAllPokemonLazyQuery } from "./generated/graphql"
+import React, { useState } from "react"
+import { Container } from "@mui/material"
 import { PokemonQuery } from "./components/PokemonQuery"
+import { Selector } from "./components/Selector"
+
+const pokemonTypes: Array<string> = [
+  "normal",
+  "fighting",
+  "flying",
+  "poison",
+  "ground",
+  "rock",
+  "bug",
+  "ghost",
+  "steel",
+  "fire",
+  "water",
+  "grass",
+  "electric",
+  "psychic",
+  "ice",
+  "dragon",
+  "dark",
+  "fairy",
+]
+
+const limits: Array<string> = ["60", "90", "120", "150"]
 
 const App = (): React.ReactElement => {
   const [limit, setLimit] = useState("60")
-  const [queryData, setQueryData] = useState({})
-  const [selectedQueryHook, setSelectedQueryHook] = useState(
-    () => useGetAllPokemonLazyQuery,
-  )
-
-  const [getPokemon, { data, loading, error }] = selectedQueryHook({
-    variables: { limit: parseInt(limit) },
-  })
-
-  const handleClick = (e: React.MouseEvent): void => {}
-
-  const handleChange = (e: SelectChangeEvent<string>): void => {
-    setLimit(e.target.value)
-  }
+  const [type, setType] = useState("")
 
   return (
     <Container className="App">
       <h1> Pokebrowser </h1>
-      {/* <QuerySelection /> */}
-      <Button> Run Query </Button>
-      <FormControl>
-        <InputLabel id="limit-select-label">Limit</InputLabel>
-        <Select
-          labelId="limit-select-label"
-          id="limit-select"
-          label="limit"
-          value={limit}
-          onChange={handleChange}>
-          <MenuItem value={60}>60</MenuItem>
-          <MenuItem value={90}>90</MenuItem>
-          <MenuItem value={120}>120</MenuItem>
-          <MenuItem value={150}>150</MenuItem>
-        </Select>
-      </FormControl>
+      <Selector
+        values={limits}
+        initialValue={limits[0]}
+        setSelected={setLimit}
+      />
+      <Selector
+        values={pokemonTypes}
+        initialValue={pokemonTypes[0]}
+        setSelected={setType}
+      />
       <br />
-      <PokemonQuery limit={parseInt(limit)} />
+      <PokemonQuery limit={limit} />
     </Container>
   )
 }
