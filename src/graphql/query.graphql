@@ -1,21 +1,7 @@
-query GetAllPokemon($limit: Int!) {
-  pokemon_v2_pokemon(limit: $limit) {
+query GetAllPokemon($limit: Int!, $where: pokemon_v2_pokemon_bool_exp) {
+  pokemon_v2_pokemon(where: $where, limit: $limit) {
     id
     name
     height
-  }
-}
-
-query PokemonByType($type: String!, $limit: Int!) {
-  pokemon_v2_pokemon(
-    where: {
-      pokemon_v2_pokemontypes: { pokemon_v2_type: { name: { _eq: $type } } }
-    }
-    limit: $limit
-  ) {
-    id
-    name
-    height
-    }
   }
 }

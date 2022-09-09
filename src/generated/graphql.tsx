@@ -51718,30 +51718,19 @@ export type Subscription_RootPokemon_V2_Versionname_By_PkArgs = {
 
 export type GetAllPokemonQueryVariables = Exact<{
   limit: Scalars['Int'];
+  where?: InputMaybe<Pokemon_V2_Pokemon_Bool_Exp>;
 }>;
 
 
-export type GetAllPokemonQuery = { __typename?: 'query_root', pokemon_v2_pokemon: Array<{ __typename?: 'pokemon_v2_pokemon', base_experience?: number | null, height?: number | null, id: number, is_default: boolean, name: string, order?: number | null, pokemon_species_id?: number | null }> };
-
-export type PokemonByTypeQueryVariables = Exact<{
-  type: Scalars['String'];
-  limit: Scalars['Int'];
-}>;
-
-
-export type PokemonByTypeQuery = { __typename?: 'query_root', pokemon_v2_pokemon: Array<{ __typename?: 'pokemon_v2_pokemon', id: number, name: string, pokemon_v2_pokemontypes: Array<{ __typename?: 'pokemon_v2_pokemontype', pokemon_v2_type?: { __typename?: 'pokemon_v2_type', name: string } | null }> }> };
+export type GetAllPokemonQuery = { __typename?: 'query_root', pokemon_v2_pokemon: Array<{ __typename?: 'pokemon_v2_pokemon', id: number, name: string, height?: number | null }> };
 
 
 export const GetAllPokemonDocument = gql`
-    query GetAllPokemon($limit: Int!) {
-  pokemon_v2_pokemon(limit: $limit) {
-    base_experience
-    height
+    query GetAllPokemon($limit: Int!, $where: pokemon_v2_pokemon_bool_exp) {
+  pokemon_v2_pokemon(where: $where, limit: $limit) {
     id
-    is_default
     name
-    order
-    pokemon_species_id
+    height
   }
 }
     `;
@@ -51759,6 +51748,7 @@ export const GetAllPokemonDocument = gql`
  * const { data, loading, error } = useGetAllPokemonQuery({
  *   variables: {
  *      limit: // value for 'limit'
+ *      where: // value for 'where'
  *   },
  * });
  */
@@ -51773,48 +51763,3 @@ export function useGetAllPokemonLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetAllPokemonQueryHookResult = ReturnType<typeof useGetAllPokemonQuery>;
 export type GetAllPokemonLazyQueryHookResult = ReturnType<typeof useGetAllPokemonLazyQuery>;
 export type GetAllPokemonQueryResult = Apollo.QueryResult<GetAllPokemonQuery, GetAllPokemonQueryVariables>;
-export const PokemonByTypeDocument = gql`
-    query PokemonByType($type: String!, $limit: Int!) {
-  pokemon_v2_pokemon(
-    where: {pokemon_v2_pokemontypes: {pokemon_v2_type: {name: {_eq: $type}}}}
-    limit: $limit
-  ) {
-    id
-    name
-    pokemon_v2_pokemontypes {
-      pokemon_v2_type {
-        name
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __usePokemonByTypeQuery__
- *
- * To run a query within a React component, call `usePokemonByTypeQuery` and pass it any options that fit your needs.
- * When your component renders, `usePokemonByTypeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = usePokemonByTypeQuery({
- *   variables: {
- *      type: // value for 'type'
- *      limit: // value for 'limit'
- *   },
- * });
- */
-export function usePokemonByTypeQuery(baseOptions: Apollo.QueryHookOptions<PokemonByTypeQuery, PokemonByTypeQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<PokemonByTypeQuery, PokemonByTypeQueryVariables>(PokemonByTypeDocument, options);
-      }
-export function usePokemonByTypeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PokemonByTypeQuery, PokemonByTypeQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<PokemonByTypeQuery, PokemonByTypeQueryVariables>(PokemonByTypeDocument, options);
-        }
-export type PokemonByTypeQueryHookResult = ReturnType<typeof usePokemonByTypeQuery>;
-export type PokemonByTypeLazyQueryHookResult = ReturnType<typeof usePokemonByTypeLazyQuery>;
-export type PokemonByTypeQueryResult = Apollo.QueryResult<PokemonByTypeQuery, PokemonByTypeQueryVariables>;

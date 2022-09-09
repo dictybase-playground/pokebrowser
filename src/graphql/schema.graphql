@@ -4,21 +4,6 @@ schema {
 }
 
 """
-whether this query should be cached (Hasura Cloud only)
-"""
-directive @cached(
-  """
-  refresh the cache entry
-  """
-  refresh: Boolean! = false
-
-  """
-  measured in seconds
-  """
-  ttl: Int! = 60
-) on QUERY
-
-"""
 Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'.
 """
 input Boolean_comparison_exp {
