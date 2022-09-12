@@ -3,7 +3,7 @@ import { useGetAllPokemonQuery } from "../generated/graphql"
 import { PokemonDisplay } from "./PokemonDisplay"
 import { PokemonDisplaySkeleton } from "./PokemonDisplaySkeleton"
 import { Selector } from "./Selector"
-import { SelectChangeEvent } from "@mui/material"
+import { SelectChangeEvent, Stack } from "@mui/material"
 
 const pokemonTypes: Array<string> = [
   "all",
@@ -36,9 +36,14 @@ export const PokemonQuery = () => {
   let { data, loading, error } = useGetAllPokemonQuery({
     variables: {
       limit,
-      where: {
-        pokemon_v2_pokemontypes: { pokemon_v2_type: { name: { _eq: type } } },
-      },
+      where:
+        type === "all"
+          ? null
+          : {
+              pokemon_v2_pokemontypes: {
+                pokemon_v2_type: { name: { _eq: type } },
+              },
+            },
     },
   })
 
@@ -52,18 +57,22 @@ export const PokemonQuery = () => {
 
   return (
     <>
-      <Selector
-        label="Limit"
-        options={limits}
-        value={limit.toString()}
-        handleChange={limitSelectorChangeHandler}
-      />
-      <Selector
-        label="Type"
-        options={pokemonTypes}
-        value={type}
-        handleChange={typeSelectorChangeHandler}
-      />
+      <Stack
+        direction="row"
+        spacing={1}>
+        <Selector
+          label="Limit"
+          options={limits}
+          value={limit.toString()}
+          handleChange={limitSelectorChangeHandler}
+        />
+        <Selector
+          label="Type"
+          options={pokemonTypes}
+          value={type}
+          handleChange={typeSelectorChangeHandler}
+        />
+      </Stack>
       <br />
       {loading ? <PokemonDisplaySkeleton limit={limit} /> : <></>}
       {error ? `${error.message}` : <></>}

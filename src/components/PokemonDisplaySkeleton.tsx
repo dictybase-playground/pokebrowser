@@ -6,7 +6,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
 } from "@mui/material"
 
 interface PokemonDisplaySkeletonProps {
@@ -17,11 +16,17 @@ const getSkeletonDimensions = (rows: number) => {
   const jsx = []
   for (let i = 0; i < rows; i++) {
     jsx.push(
-      <Skeleton
-        animation="wave"
-        width="fullWidth"
-        component="h1"
-      />,
+      <TableRow>
+        <TableCell>
+          <Skeleton animation="wave" />
+        </TableCell>
+        <TableCell>
+          <Skeleton animation="wave" />
+        </TableCell>
+        <TableCell>
+          <Skeleton animation="wave" />
+        </TableCell>
+      </TableRow>,
     )
   }
   return jsx
@@ -32,7 +37,16 @@ export const PokemonDisplaySkeleton = ({
 }: PokemonDisplaySkeletonProps) => {
   return (
     <TableContainer>
-      <Table>{getSkeletonDimensions(limit)}</Table>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell> ID </TableCell>
+            <TableCell> Name </TableCell>
+            <TableCell> Height (decimeter) </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>{getSkeletonDimensions(limit)}</TableBody>
+      </Table>
     </TableContainer>
   )
 }

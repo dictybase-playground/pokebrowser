@@ -10,7 +10,7 @@ import {
 } from "@mui/material"
 
 interface PokemonDisplayProps {
-  data: GetAllPokemonQuery | undefined
+  data: GetAllPokemonQuery
 }
 
 export const PokemonDisplay = ({ data }: PokemonDisplayProps) => {
