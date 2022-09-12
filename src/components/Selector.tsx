@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import {
   Select,
   FormControl,
@@ -9,24 +9,17 @@ import {
 
 interface SelectorProps {
   label: string
-  initialValue: string
-  values: string[]
-  setSelected: React.Dispatch<React.SetStateAction<string>>
+  value: string
+  options: string[]
+  handleChange: (e: SelectChangeEvent<string>) => void
 }
 
 export const Selector = ({
   label,
-  values,
-  initialValue,
-  setSelected,
+  value,
+  options,
+  handleChange,
 }: SelectorProps) => {
-  const [currentValue, setCurrentValue] = useState(initialValue)
-
-  const handleChange = (e: SelectChangeEvent<string>): void => {
-    setCurrentValue(e.target.value) //keeping its own current value state is probably redundant
-    setSelected(e.target.value)
-  }
-
   return (
     <FormControl>
       <InputLabel id={`${label}-select-label`}>{label}</InputLabel>
@@ -34,10 +27,14 @@ export const Selector = ({
         labelId={`${label}-select-label`}
         id={`${label}-select`}
         label={label}
-        value={currentValue}
+        value={value}
         onChange={handleChange}>
-        {values.map((value) => (
-          <MenuItem value={value}>{value}</MenuItem>
+        {options.map((option) => (
+          <MenuItem
+            key={option}
+            value={option}>
+            {option}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>

@@ -1,12 +1,37 @@
+import { useState } from "react"
 import { useGetAllPokemonQuery } from "../generated/graphql"
 import { PokemonDisplay } from "./PokemonDisplay"
-interface PokemonQueryProps {
-  limit: number | string
-  type: string
-}
+import { PokemonDisplaySkeleton } from "./PokemonDisplaySkeleton"
+import { Selector } from "./Selector"
+import { SelectChangeEvent } from "@mui/material"
 
-export const PokemonQuery = ({ limit, type }: PokemonQueryProps) => {
-  if (typeof limit === "string") limit = parseInt(limit)
+const pokemonTypes: Array<string> = [
+  "all",
+  "normal",
+  "fighting",
+  "flying",
+  "poison",
+  "ground",
+  "rock",
+  "bug",
+  "ghost",
+  "steel",
+  "fire",
+  "water",
+  "grass",
+  "electric",
+  "psychic",
+  "ice",
+  "dragon",
+  "dark",
+  "fairy",
+]
+
+const limits = ["60", "90", "120", "150"]
+
+export const PokemonQuery = () => {
+  const [limit, setLimit] = useState(parseInt(limits[0]))
+  const [type, setType] = useState(pokemonTypes[0])
 
   let { data, loading, error } = useGetAllPokemonQuery({
     variables: {
@@ -17,9 +42,30 @@ export const PokemonQuery = ({ limit, type }: PokemonQueryProps) => {
     },
   })
 
+  const limitSelectorChangeHandler = (e: SelectChangeEvent<string>): void => {
+    setLimit(parseInt(e.target.value))
+  }
+
+  const typeSelectorChangeHandler = (e: SelectChangeEvent<string>): void => {
+    setType(e.target.value)
+  }
+
   return (
     <>
-      {loading ? "Loading" : <></>}
+      <Selector
+        label="Limit"
+        options={limits}
+        value={limit.toString()}
+        handleChange={limitSelectorChangeHandler}
+      />
+      <Selector
+        label="Type"
+        options={pokemonTypes}
+        value={type}
+        handleChange={typeSelectorChangeHandler}
+      />
+      <br />
+      {loading ? <PokemonDisplaySkeleton limit={limit} /> : <></>}
       {error ? `${error.message}` : <></>}
       {data ? <PokemonDisplay data={data} /> : <></>}
     </>
