@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useGetAllPokemonQuery } from "../generated/graphql"
 import { PokemonDisplay } from "./PokemonDisplay"
 import { PokemonDisplaySkeleton } from "./PokemonDisplaySkeleton"
+import { PokemonDisplayError } from "./PokemonDisplayError"
 import { Selector } from "./Selector"
 import { SelectChangeEvent, Stack } from "@mui/material"
 
@@ -75,7 +76,7 @@ export const PokemonQuery = () => {
       </Stack>
       <br />
       {loading ? <PokemonDisplaySkeleton limit={limit} /> : <></>}
-      {error ? `${error.message}` : <></>}
+      {error ? <PokemonDisplayError error={error} /> : <></>}
       {data ? <PokemonDisplay data={data} /> : <></>}
     </>
   )

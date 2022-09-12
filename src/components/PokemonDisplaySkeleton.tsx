@@ -16,7 +16,7 @@ const getSkeletonDimensions = (rows: number) => {
   const jsx = []
   for (let i = 0; i < rows; i++) {
     jsx.push(
-      <TableRow>
+      <TableRow key={i}>
         <TableCell>
           <Skeleton animation="wave" />
         </TableCell>
