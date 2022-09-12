@@ -12,7 +12,7 @@ interface PokemonDisplaySkeletonProps {
   limit: number
 }
 
-const getSkeletonDimensions = (rows: number) => {
+const getSkeletonRows = (rows: number) => {
   const jsx = []
   for (let i = 0; i < rows; i++) {
     jsx.push(
@@ -45,7 +45,7 @@ export const PokemonDisplaySkeleton = ({
             <TableCell> Height (decimeter) </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>{getSkeletonDimensions(limit)}</TableBody>
+        <TableBody>{getSkeletonRows(limit)}</TableBody>
       </Table>
     </TableContainer>
   )
