@@ -12,5 +12,3 @@ interface PokeProviderProps {
 export const PokeProvider = ({ children }: PokeProviderProps) => {
   return <ApolloProvider client={client}>{children}</ApolloProvider>
 }
-
-//
