@@ -6,25 +6,25 @@ import {
   SelectChangeEvent,
 } from "@mui/material"
 import { useAtom } from "jotai"
-import { pokemonLimitAtom, limitOptions } from "../context/AtomConfigs"
+import { pokemonTypeAtom, pokemonTypeOptions } from "../context/AtomConfigs"
 
-export const LimitSelector = () => {
-  const [limit, setLimit] = useAtom(pokemonLimitAtom)
+export const PokemonTypeSelector = () => {
+  const [type, setType] = useAtom(pokemonTypeAtom)
 
   const handleChange = (e: SelectChangeEvent) => {
-    setLimit(e.target.value)
+    setType(e.target.value)
   }
 
   return (
     <FormControl>
-      <InputLabel id={`$limit-select-label`}>Limit</InputLabel>
+      <InputLabel id="type-select-label">Type</InputLabel>
       <Select
-        labelId={`$limit-select-label`}
-        id={`$limit-select`}
-        label="limit"
-        value={limit}
+        labelId="type-select-label"
+        id="type-select"
+        label="type"
+        value={type}
         onChange={handleChange}>
-        {limitOptions.map((option) => (
+        {pokemonTypeOptions.map((option) => (
           <MenuItem
             key={option}
             value={option}>
