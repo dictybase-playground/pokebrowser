@@ -24,7 +24,7 @@ export const PokemonQuery = () => {
         <LimitSelector />
       </Stack>
       <br />
-      {loading ? <PokemonDisplaySkeleton limit={limit} /> : <></>}
+      {loading ? <PokemonDisplaySkeleton /> : <></>}
       {error ? <PokemonDisplayError error={error} /> : <></>}
       {data ? <PokemonDisplay data={data} /> : <></>}
     </>
