@@ -1,5 +1,5 @@
 import { useAtom } from "jotai"
-import { pokemonLimitIntAtom } from "../context/ArgumentsProvider"
+import { pokemonLimitIntAtom } from "../context/AtomConfigs"
 import { useGetAllPokemonQuery } from "../generated/graphql"
 import { PokemonDisplay } from "./PokemonDisplay"
 import { PokemonDisplaySkeleton } from "./PokemonDisplaySkeleton"
