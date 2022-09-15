@@ -1,58 +1,71 @@
 import { render, screen } from "@testing-library/react"
-import { MockedProvider } from "@apollo/client/testing"
 import { PokemonQuery } from "./PokemonQuery"
-import { GetAllPokemonDocument } from "../generated/graphql"
+import { useGetAllPokemonQuery } from "../generated/graphql"
+import { ApolloError } from "@apollo/client"
 
-const mocks = [
-  {
-    request: {
-      query: GetAllPokemonDocument,
-      variables: {
-        limit: 3,
-        where: {
-          pokemon_v2_pokemontypes: {
-            pokemon_v2_type: { name: { _eq: "all" } },
-          },
+const mocks = {
+  listPokemonNoType: {
+    data: {
+      pokemon_v2_pokemon: [
+        {
+          id: 1,
+          name: "bulbasaur",
+          height: 7,
+          __typename: "pokemon_v2_pokemon",
         },
-      },
-    },
-    result: {
-      data: {
-        pokemon_v2_pokemon: [
-          {
-            id: 1,
-            name: "bulbasaur",
-            height: 7,
-            __typename: "pokemon_v2_pokemon",
-          },
-          {
-            id: 2,
-            name: "ivysaur",
-            height: 10,
-            __typename: "pokemon_v2_pokemon",
-          },
-          {
-            id: 3,
-            name: "venusaur",
-            height: 20,
-            __typename: "pokemon_v2_pokemon",
-          },
-        ],
-      },
+        {
+          id: 2,
+          name: "ivysaur",
+          height: 10,
+          __typename: "pokemon_v2_pokemon",
+        },
+        {
+          id: 3,
+          name: "venusaur",
+          height: 20,
+          __typename: "pokemon_v2_pokemon",
+        },
+      ],
     },
   },
-]
+}
 
-it("renders without error", async () => {
-  render(
-    <MockedProvider
-      mocks={mocks}
-      addTypename={true}>
-      <PokemonQuery />
-    </MockedProvider>,
-  )
+jest.mock("../generated/graphql", () => {
+  const useGetAllPokemonQuery = jest.fn()
+  return { useGetAllPokemonQuery }
+})
 
-  expect(await screen.getByText("bulbasaur")).toBeInTheDocument()
-  expect(await screen.getByText("ivysaur")).toBeInTheDocument()
-  expect(await screen.getByText("venusaur")).toBeInTheDocument()
+describe("PokemonQuery", () => {
+  beforeEach(() => jest.clearAllMocks())
+
+  it("renders pokemon", () => {
+    ;(useGetAllPokemonQuery as jest.Mock).mockReturnValue({
+      loading: false,
+      error: false,
+      data: mocks.listPokemonNoType.data,
+    })
+
+    render(<PokemonQuery />)
+    expect(screen.getByText("bulbasaur")).toBeInTheDocument()
+    expect(screen.getByText("ivysaur")).toBeInTheDocument()
+    expect(screen.getByText("venusaur")).toBeInTheDocument()
+  })
+
+  it("renders a loading state if Pokemon data is loading", () => {
+    ;(useGetAllPokemonQuery as jest.Mock).mockReturnValue({
+      loading: true,
+    })
+
+    render(<PokemonQuery />)
+    expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
+  })
+
+  it("renders an error state if Pokemon data fails to load", () => {
+    ;(useGetAllPokemonQuery as jest.Mock).mockReturnValue({
+      error: new ApolloError({}),
+    })
+
+    render(<PokemonQuery />)
+    expect(screen.getByText(/error/i)).toBeInTheDocument()
+  })
 })

@@ -26,6 +26,8 @@ export const PokemonQuery = () => {
     },
   })
 
+  console.log(data)
+
   return (
     <>
       <Stack

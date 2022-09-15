@@ -34,7 +34,7 @@ export const PokemonDisplaySkeleton = () => {
   const [limit] = useAtom(pokemonLimitIntAtom)
 
   return (
-    <TableContainer>
+    <TableContainer data-testid="skeleton-loader">
       <Table>
         <TableHead>
           <TableRow>
