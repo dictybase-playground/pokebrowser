@@ -2,33 +2,7 @@ import { render, screen } from "@testing-library/react"
 import { PokemonQuery } from "./PokemonQuery"
 import { useGetAllPokemonQuery } from "../generated/graphql"
 import { ApolloError } from "@apollo/client"
-
-const mocks = {
-  listPokemonNoType: {
-    data: {
-      pokemon_v2_pokemon: [
-        {
-          id: 1,
-          name: "bulbasaur",
-          height: 7,
-          __typename: "pokemon_v2_pokemon",
-        },
-        {
-          id: 2,
-          name: "ivysaur",
-          height: 10,
-          __typename: "pokemon_v2_pokemon",
-        },
-        {
-          id: 3,
-          name: "venusaur",
-          height: 20,
-          __typename: "pokemon_v2_pokemon",
-        },
-      ],
-    },
-  },
-}
+import { mockPokemon } from "../data/mockPokemon"
 
 jest.mock("../generated/graphql", () => {
   const useGetAllPokemonQuery = jest.fn()
@@ -42,7 +16,7 @@ describe("PokemonQuery", () => {
     ;(useGetAllPokemonQuery as jest.Mock).mockReturnValue({
       loading: false,
       error: false,
-      data: mocks.listPokemonNoType.data,
+      data: mockPokemon,
     })
 
     render(<PokemonQuery />)
