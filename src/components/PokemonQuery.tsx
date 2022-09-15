@@ -1,7 +1,7 @@
 import { useAtom } from "jotai"
 import { pokemonLimitIntAtom, pokemonTypeAtom } from "../context/AtomConfigs"
 import { useGetAllPokemonQuery } from "../generated/graphql"
-import { PokemonDisplay } from "./PokemonDisplay"
+import { PokemonDisplayTable } from "./PokemonDisplayTable"
 import { PokemonDisplaySkeleton } from "./PokemonDisplaySkeleton"
 import { PokemonDisplayError } from "./PokemonDisplayError"
 import { PokemonLimitSelector } from "./PokemonLimitSelector"
@@ -37,7 +37,11 @@ export const PokemonQuery = () => {
       <br />
       {loading ? <PokemonDisplaySkeleton /> : <></>}
       {error ? <PokemonDisplayError error={error} /> : <></>}
-      {data ? <PokemonDisplay data={data} /> : <></>}
+      {data ? (
+        <PokemonDisplayTable pokemonArray={data.pokemon_v2_pokemon} />
+      ) : (
+        <></>
+      )}
     </>
   )
 }

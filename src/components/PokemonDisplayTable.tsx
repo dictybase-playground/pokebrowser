@@ -8,12 +8,15 @@ import {
   TableRow,
   Paper,
 } from "@mui/material"
+import { PokemonDisplayRow } from "./PokemonDisplayRow"
 
-interface PokemonDisplayProps {
-  data: GetAllPokemonQuery
+interface PokemonDisplayTableProps {
+  pokemonArray: GetAllPokemonQuery["pokemon_v2_pokemon"]
 }
 
-export const PokemonDisplay = ({ data }: PokemonDisplayProps) => {
+export const PokemonDisplayTable = ({
+  pokemonArray,
+}: PokemonDisplayTableProps) => {
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -25,13 +28,12 @@ export const PokemonDisplay = ({ data }: PokemonDisplayProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data?.pokemon_v2_pokemon.map((pokemon) => {
+          {pokemonArray.map((pokemon) => {
             return (
-              <TableRow key={pokemon.id}>
-                <TableCell>{pokemon.id}</TableCell>
-                <TableCell>{pokemon.name}</TableCell>
-                <TableCell>{pokemon.height}</TableCell>
-              </TableRow>
+              <PokemonDisplayRow
+                key={pokemon.id}
+                pokemon={pokemon}
+              />
             )
           })}
         </TableBody>
