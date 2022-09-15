@@ -1,10 +1,14 @@
-import { Container } from "@mui/material"
+import { Container, Typography } from "@mui/material"
 import { PokemonQuery } from "./components/PokemonQuery"
 
 const App = () => {
   return (
     <Container className="App">
-      <h1> Pokebrowser </h1>
+      <Typography
+        variant="h2"
+        variantMapping={{ h2: "h1" }}>
+        Pokebrowser
+      </Typography>
       <PokemonQuery />
     </Container>
   )

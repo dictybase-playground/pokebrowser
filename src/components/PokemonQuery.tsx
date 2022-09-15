@@ -1,38 +1,16 @@
-import { useState } from "react"
+import { useAtom } from "jotai"
+import { pokemonLimitIntAtom, pokemonTypeAtom } from "../context/AtomConfigs"
 import { useGetAllPokemonQuery } from "../generated/graphql"
 import { PokemonDisplay } from "./PokemonDisplay"
 import { PokemonDisplaySkeleton } from "./PokemonDisplaySkeleton"
 import { PokemonDisplayError } from "./PokemonDisplayError"
-import { Selector } from "./Selector"
-import { SelectChangeEvent, Stack } from "@mui/material"
-
-const pokemonTypes: Array<string> = [
-  "all",
-  "normal",
-  "fighting",
-  "flying",
-  "poison",
-  "ground",
-  "rock",
-  "bug",
-  "ghost",
-  "steel",
-  "fire",
-  "water",
-  "grass",
-  "electric",
-  "psychic",
-  "ice",
-  "dragon",
-  "dark",
-  "fairy",
-]
-
-const limits = ["60", "90", "120", "150"]
+import { PokemonLimitSelector } from "./PokemonLimitSelector"
+import { PokemonTypeSelector } from "./PokemonTypeSelector"
+import { Stack } from "@mui/material"
 
 export const PokemonQuery = () => {
-  const [limit, setLimit] = useState(parseInt(limits[0]))
-  const [type, setType] = useState(pokemonTypes[0])
+  const [limit] = useAtom(pokemonLimitIntAtom)
+  const [type] = useAtom(pokemonTypeAtom)
 
   let { data, loading, error } = useGetAllPokemonQuery({
     variables: {
@@ -48,34 +26,16 @@ export const PokemonQuery = () => {
     },
   })
 
-  const limitSelectorChangeHandler = (e: SelectChangeEvent<string>): void => {
-    setLimit(parseInt(e.target.value))
-  }
-
-  const typeSelectorChangeHandler = (e: SelectChangeEvent<string>): void => {
-    setType(e.target.value)
-  }
-
   return (
     <>
       <Stack
         direction="row"
         spacing={1}>
-        <Selector
-          label="Limit"
-          options={limits}
-          value={limit.toString()}
-          handleChange={limitSelectorChangeHandler}
-        />
-        <Selector
-          label="Type"
-          options={pokemonTypes}
-          value={type}
-          handleChange={typeSelectorChangeHandler}
-        />
+        <PokemonLimitSelector />
+        <PokemonTypeSelector />
       </Stack>
       <br />
-      {loading ? <PokemonDisplaySkeleton limit={limit} /> : <></>}
+      {loading ? <PokemonDisplaySkeleton /> : <></>}
       {error ? <PokemonDisplayError error={error} /> : <></>}
       {data ? <PokemonDisplay data={data} /> : <></>}
     </>
