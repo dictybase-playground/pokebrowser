@@ -58,6 +58,23 @@
     "jsxBracketSameLine": true,
     "singleAttributePerLine": true
   },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "prettier",
+      "plugin:jest-dom/recommended"
+    ],
+    "plugins": [
+      "prettier",
+      "jest-dom"
+    ],
+    "rules": {
+      "import/exports-last": [
+        "error"
+      ]
+    }
+  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
