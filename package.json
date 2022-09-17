@@ -21,12 +21,14 @@
     "graphql": "^16.6.0",
     "immer": "^9.0.15",
     "jotai": "^1.8.3",
+    "msw": "^0.47.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.12.0",
     "@graphql-codegen/typescript": "2.7.3",
+    "@graphql-codegen/typescript-msw": "^1.1.3",
     "@graphql-codegen/typescript-operations": "2.5.3",
     "@graphql-codegen/typescript-react-apollo": "3.3.3",
     "@graphql-codegen/typescript-react-query": "^4.0.1",
