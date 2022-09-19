@@ -20,13 +20,13 @@ describe("PokemonQuery", () => {
     expect(screen.getByText("venusaur")).toBeInTheDocument()
   })
 
-  it("renders a loading state if Pokemon data is loading", () => {
+  it("renders a loading state if Pokemon data is loading", async () => {
     ;(useGetAllPokemonQuery as jest.Mock).mockReturnValue({
       loading: true,
     })
 
     render(<PokemonQuery />)
-    expect(screen.findByTestId("skeleton-loader")).toBeInTheDocument()
+    expect(await screen.findByTestId("skeleton-loader")).toBeInTheDocument()
   })
 
   it("renders an error state if Pokemon data fails to load", () => {
