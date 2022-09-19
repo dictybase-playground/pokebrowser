@@ -75,10 +75,8 @@
       "prettier",
       "jest-dom"
     ],
-    "rules": {
-      "import/exports-last": [
-        "error"
-      ]
+    "parserOptions": {
+      "sourceType": "module"
     }
   },
   "config": {
