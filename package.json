@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:mock": "REACT_APP_MOCK_SERVER=on vite",
     "build": "tsc && vite build",
     "test": "jest --watch",
     "test-coverage": "jest --coverage",
@@ -90,5 +91,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

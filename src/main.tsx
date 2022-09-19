@@ -2,6 +2,15 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import App from "./App"
 import { PokeProvider } from "./context/PokeProvider"
+import { worker } from "./data/browser"
+
+const main = async () => {
+  if (import.meta.env.MODE === "development") {
+    if (import.meta.env.VITE_MOCK_SERVER === "on") {
+      await worker.start()
+    }
+  }
+}
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -10,3 +19,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     </PokeProvider>
   </React.StrictMode>,
 )
+
+main()
