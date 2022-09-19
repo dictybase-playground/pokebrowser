@@ -3,22 +3,17 @@ import { PokemonQuery } from "./PokemonQuery"
 import { useGetAllPokemonQuery } from "../generated/graphql"
 import { ApolloError } from "@apollo/client"
 import { mockPokemon } from "../data/mockPokemon"
+import { mockGetAllPokemonQuery } from "../generated/msw"
+import { setupServer } from "msw/node"
 
-jest.mock("../generated/graphql", () => {
-  const useGetAllPokemonQuery = jest.fn()
-  return { useGetAllPokemonQuery }
-})
+const server = setupServer(
+  mockGetAllPokemonQuery((req, res, ctx) => {
+    res(ctx.data(mockPokemon.pokemon_v2_pokemon))
+  }),
+)
 
 describe("PokemonQuery", () => {
-  beforeEach(() => jest.clearAllMocks())
-
   it("renders pokemon", () => {
-    ;(useGetAllPokemonQuery as jest.Mock).mockReturnValue({
-      loading: false,
-      error: false,
-      data: mockPokemon,
-    })
-
     render(<PokemonQuery />)
     expect(screen.getByText("bulbasaur")).toBeInTheDocument()
     expect(screen.getByText("ivysaur")).toBeInTheDocument()
@@ -31,7 +26,7 @@ describe("PokemonQuery", () => {
     })
 
     render(<PokemonQuery />)
-    expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
+    expect(screen.findByTestId("skeleton-loader")).toBeInTheDocument()
   })
 
   it("renders an error state if Pokemon data fails to load", () => {
