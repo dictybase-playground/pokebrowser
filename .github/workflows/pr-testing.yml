@@ -3,10 +3,10 @@ on: pull_request
 jobs:
   test:
     name: Unit tests
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-LTS
     steps:
       - name: set up node.js
-        uses: actions/setup-node@v3.4.1
+        uses: actions/setup-node@v3
         with:
           node-version: 16
       - name: check out code
