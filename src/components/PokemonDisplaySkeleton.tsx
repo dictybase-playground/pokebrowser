@@ -7,8 +7,6 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material"
-import { useAtom } from "jotai"
-import { pokemonLimitIntAtom } from "../context/AtomConfigs"
 
 const getSkeletonRows = (rows: number) => {
   const jsx = []
@@ -31,8 +29,6 @@ const getSkeletonRows = (rows: number) => {
 }
 
 export const PokemonDisplaySkeleton = () => {
-  const [limit] = useAtom(pokemonLimitIntAtom)
-
   return (
     <TableContainer data-testid="skeleton-loader">
       <Table>
@@ -43,7 +39,7 @@ export const PokemonDisplaySkeleton = () => {
             <TableCell> Height (decimeter) </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>{getSkeletonRows(limit)}</TableBody>
+        <TableBody>{getSkeletonRows(10)}</TableBody>
       </Table>
     </TableContainer>
   )
