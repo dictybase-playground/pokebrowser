@@ -43,7 +43,7 @@ export const PokemonDisplaySkeleton = () => {
             <TableCell> Height (decimeter) </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>{getSkeletonRows(limit)}</TableBody>
+        <TableBody>{getSkeletonRows(10)}</TableBody>
       </Table>
     </TableContainer>
   )
