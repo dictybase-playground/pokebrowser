@@ -68,23 +68,12 @@
     "singleAttributePerLine": true
   },
   "eslintConfig": {
-    "env": {
-      "es2022": true
-    },
-    "plugins": [
-      "prettier",
-      "jest-dom"
-    ],
     "extends": [
       "react-app",
       "react-app/jest",
       "prettier",
       "plugin:jest-dom/recommended"
-    ],
-    "parserOptions": {
-      "ecmaVersion": "latest",
-      "sourceType": "module"
-    }
+    ]
   },
   "config": {
     "commitizen": {
