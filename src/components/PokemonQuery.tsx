@@ -6,6 +6,7 @@ import { PokemonDisplaySkeleton } from "./PokemonDisplaySkeleton"
 import { PokemonDisplayError } from "./PokemonDisplayError"
 import { PokemonLimitSelector } from "./PokemonLimitSelector"
 import { PokemonTypeSelector } from "./PokemonTypeSelector"
+import { Pagination } from "./Pagination"
 import { Stack } from "@mui/material"
 
 export const PokemonQuery = () => {
@@ -33,6 +34,10 @@ export const PokemonQuery = () => {
         spacing={1}>
         <PokemonLimitSelector />
         <PokemonTypeSelector />
+        <Pagination
+          pageItemLimit={10}
+          totalItems={100}
+        />
       </Stack>
       <br />
       {loading ? <PokemonDisplaySkeleton /> : <></>}

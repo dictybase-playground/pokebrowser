@@ -31,3 +31,5 @@ export const pokemonLimitIntAtom = atom((get) =>
 )
 
 export const pokemonTypeAtom = atomWithImmer(pokemonTypeOptions[0])
+
+export const currentPageAtom = atomWithImmer(1)
