@@ -1,6 +1,10 @@
 import { useAtom } from "jotai"
-import { pokemonLimitIntAtom, pokemonTypeAtom } from "../context/AtomConfigs"
-import { useGetAllPokemonQuery } from "../generated/graphql"
+import {
+  pokemonLimitIntAtom,
+  pokemonTypeAtom,
+  currentPageAtom,
+} from "../context/AtomConfigs"
+import { useGetAllPokemonQuery, GetAllPokemonQuery } from "../generated/graphql"
 import { PokemonDisplayTable } from "./PokemonDisplayTable"
 import { PokemonDisplaySkeleton } from "./PokemonDisplaySkeleton"
 import { PokemonDisplayError } from "./PokemonDisplayError"
@@ -9,11 +13,25 @@ import { PokemonTypeSelector } from "./PokemonTypeSelector"
 import { Pagination } from "./Pagination"
 import { Stack } from "@mui/material"
 
+const rowsPerPage = 10
+
+const getCurrentPageRows = (
+  data: GetAllPokemonQuery["pokemon_v2_pokemon"],
+  currentPage: number,
+  rowsPerPage: number,
+) => {
+  const startIdx = (currentPage - 1) * rowsPerPage
+  const endIdx = startIdx + rowsPerPage
+
+  return data.slice(startIdx, endIdx)
+}
+
 export const PokemonQuery = () => {
   const [limit] = useAtom(pokemonLimitIntAtom)
   const [type] = useAtom(pokemonTypeAtom)
+  const [currentPage] = useAtom(currentPageAtom)
 
-  let { data, loading, error } = useGetAllPokemonQuery({
+  const { data, loading, error } = useGetAllPokemonQuery({
     variables: {
       limit,
       where:
@@ -34,16 +52,26 @@ export const PokemonQuery = () => {
         spacing={1}>
         <PokemonLimitSelector />
         <PokemonTypeSelector />
-        <Pagination
-          pageItemLimit={10}
-          totalItems={100}
-        />
+        {data ? (
+          <Pagination
+            pageItemLimit={rowsPerPage}
+            totalItems={data.pokemon_v2_pokemon.length}
+          />
+        ) : (
+          <></>
+        )}
       </Stack>
       <br />
       {loading ? <PokemonDisplaySkeleton /> : <></>}
       {error ? <PokemonDisplayError error={error} /> : <></>}
       {data ? (
-        <PokemonDisplayTable pokemonArray={data.pokemon_v2_pokemon} />
+        <PokemonDisplayTable
+          pokemonArray={getCurrentPageRows(
+            data.pokemon_v2_pokemon,
+            currentPage,
+            rowsPerPage,
+          )}
+        />
       ) : (
         <></>
       )}
