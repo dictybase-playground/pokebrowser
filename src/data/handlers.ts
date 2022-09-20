@@ -1,4 +1,4 @@
-import { mockGetAllPokemonQuery } from "../generated/msw"
+import { mockGetAllPokemonQuery } from "../generated/graphql"
 import { mockPokemon } from "./mockPokemon"
 
 export const handlers = [

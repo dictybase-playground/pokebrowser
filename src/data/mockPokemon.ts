@@ -1,4 +1,6 @@
-export const mockPokemon = {
+import { GetAllPokemonQuery } from "../generated/graphql"
+
+export const mockPokemon: GetAllPokemonQuery = {
   pokemon_v2_pokemon: [
     {
       __typename: "pokemon_v2_pokemon",
