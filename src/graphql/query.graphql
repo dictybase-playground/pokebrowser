@@ -1,5 +1,9 @@
-query GetAllPokemon($limit: Int!, $where: pokemon_v2_pokemon_bool_exp) {
-  pokemon_v2_pokemon(where: $where, limit: $limit) {
+query GetAllPokemon(
+  $limit: Int!
+  $offset: Int
+  $where: pokemon_v2_pokemon_bool_exp
+) {
+  pokemon_v2_pokemon(where: $where, offset: $offset, limit: $limit) {
     id
     name
     height

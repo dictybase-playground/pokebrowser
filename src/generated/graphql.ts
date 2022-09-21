@@ -51719,6 +51719,7 @@ export type Subscription_RootPokemon_V2_Versionname_By_PkArgs = {
 
 export type GetAllPokemonQueryVariables = Exact<{
   limit: Scalars['Int'];
+  offset?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<Pokemon_V2_Pokemon_Bool_Exp>;
 }>;
 
@@ -51727,8 +51728,8 @@ export type GetAllPokemonQuery = { __typename?: 'query_root', pokemon_v2_pokemon
 
 
 export const GetAllPokemonDocument = gql`
-    query GetAllPokemon($limit: Int!, $where: pokemon_v2_pokemon_bool_exp) {
-  pokemon_v2_pokemon(where: $where, limit: $limit) {
+    query GetAllPokemon($limit: Int!, $offset: Int, $where: pokemon_v2_pokemon_bool_exp) {
+  pokemon_v2_pokemon(where: $where, offset: $offset, limit: $limit) {
     id
     name
     height
@@ -51749,6 +51750,7 @@ export const GetAllPokemonDocument = gql`
  * const { data, loading, error } = useGetAllPokemonQuery({
  *   variables: {
  *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
  *      where: // value for 'where'
  *   },
  * });
@@ -51770,7 +51772,7 @@ export type GetAllPokemonQueryResult = Apollo.QueryResult<GetAllPokemonQuery, Ge
  * @see https://mswjs.io/docs/basics/response-resolver
  * @example
  * mockGetAllPokemonQuery((req, res, ctx) => {
- *   const { limit, where } = req.variables;
+ *   const { limit, offset, where } = req.variables;
  *   return res(
  *     ctx.data({ pokemon_v2_pokemon })
  *   )
