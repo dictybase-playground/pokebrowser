@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react"
 import { PokemonQuery } from "./PokemonQuery"
 import { useGetAllPokemonQuery } from "../generated/graphql"
 import { ApolloError } from "@apollo/client"
-import { mockPokemon } from "../data/mockPokemon"
+import { mockPokemon } from "../mock/mockPokemon"
 
 jest.mock("../generated/graphql", () => {
   const useGetAllPokemonQuery = jest.fn()

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import { PokemonDisplayRow } from "./PokemonDisplayRow"
-import { mockPokemon } from "../data/mockPokemon"
+import { mockPokemon } from "../mock/mockPokemon"
 import { Table, TableBody } from "@mui/material"
 
 const testPokemon = mockPokemon.pokemon_v2_pokemon[0]
