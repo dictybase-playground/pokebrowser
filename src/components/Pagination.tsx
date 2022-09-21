@@ -1,15 +1,40 @@
 import { Stack, Button } from "@mui/material"
 import { useAtom } from "jotai"
-import { currentPageAtom } from "../context/AtomConfigs"
+import {
+  currentPageAtom,
+  pokemonLimitIntAtom,
+  pokemonTypeAtom,
+} from "../context/AtomConfigs"
+import { useGetPokemonCountByTypeQuery } from "../generated/graphql"
 
-interface PaginationProps {
-  pageItemLimit: number
-  totalItems: number
-}
-
-export const Pagination = ({ pageItemLimit, totalItems }: PaginationProps) => {
+export const Pagination = () => {
   const [currentPage, setCurrentPage] = useAtom(currentPageAtom)
-  const pageCount = Math.ceil(totalItems / pageItemLimit)
+  const [rowsPerPage] = useAtom(pokemonLimitIntAtom)
+  const [type] = useAtom(pokemonTypeAtom)
+  let pageCount = 1
+
+  const { data, loading } = useGetPokemonCountByTypeQuery({
+    variables: {
+      where:
+        type === "all"
+          ? null
+          : {
+              pokemon_v2_pokemontypes: {
+                pokemon_v2_type: {
+                  name: {
+                    _eq: type,
+                  },
+                },
+              },
+            },
+    },
+  })
+
+  if (data) {
+    const pokemonCount =
+      data.pokemon_v2_pokemon_aggregate.aggregate?.count || rowsPerPage
+    pageCount = Math.ceil(pokemonCount / rowsPerPage)
+  }
 
   const handleNextPage = () => {
     setCurrentPage(Math.min(currentPage + 1, pageCount))
@@ -22,7 +47,12 @@ export const Pagination = ({ pageItemLimit, totalItems }: PaginationProps) => {
   return (
     <Stack direction="row">
       <Button onClick={handlePrevPage}> Prev </Button>
-      <Button disabled> {`${currentPage} / ${pageCount}`} </Button>
+      {loading ? <Button disabled> {`${currentPage} / ?`} </Button> : <></>}
+      {data ? (
+        <Button disabled> {`${currentPage} / ${pageCount}`} </Button>
+      ) : (
+        <></>
+      )}
       <Button onClick={handleNextPage}> Next </Button>
     </Stack>
   )
