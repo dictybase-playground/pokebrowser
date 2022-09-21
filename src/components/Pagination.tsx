@@ -13,7 +13,13 @@ const getPages = (totalPages: number, currentPage: number) => {
   const pages = []
 
   for (let i = 1; i <= totalPages; i++) {
-    if (i === currentPage || i === 1 || i === totalPages) {
+    if (
+      i === currentPage ||
+      i === currentPage + 1 ||
+      i === currentPage - 1 ||
+      i === 1 ||
+      i === totalPages
+    ) {
       pages.push(i)
     } else if (pages[pages.length - 1] !== "...") {
       pages.push("...")
@@ -44,17 +50,21 @@ export const Pagination = ({ pageItemLimit, totalItems }: PaginationProps) => {
   return (
     <Stack direction="row">
       <Button onClick={handlePrevPage}> Prev </Button>
-      {getPages(pageCount, currentPage).map((pageNumber) => {
-        if (pageNumber === currentPage)
-          return <Button disabled>{pageNumber}</Button>
-
-        return typeof pageNumber === "number" ? (
-          <Button onClick={() => handleJumpTo(pageNumber)}>{pageNumber}</Button>
-        ) : (
-          <Button>{pageNumber}</Button>
-        )
-      })}
       <Button onClick={handleNextPage}> Next </Button>
+      {getPages(pageCount, currentPage).map((pageNumber) => {
+        switch (pageNumber) {
+          case currentPage:
+            return <Button disabled>{pageNumber}</Button>
+          case "...":
+            return <Button disabled>{pageNumber}</Button>
+          default:
+            return (
+              <Button onClick={() => handleJumpTo(pageNumber as number)}>
+                {pageNumber}
+              </Button>
+            )
+        }
+      })}
     </Stack>
   )
 }
