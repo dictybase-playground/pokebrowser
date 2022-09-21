@@ -25,7 +25,13 @@ export const pokemonTypeOptions = [
   "fairy",
 ]
 
-export const pokemonLimitAtom = atomWithImmer(pokemonLimitOptions[0])
+export const pokemonLimitAtom = atom(
+  pokemonLimitOptions[0],
+  (get, set, update) => {
+    set(pokemonLimitAtom, update)
+    set(currentPageAtom, 1)
+  },
+)
 export const pokemonLimitIntAtom = atom((get) =>
   parseInt(get(pokemonLimitAtom)),
 )
