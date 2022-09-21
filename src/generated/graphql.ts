@@ -51726,6 +51726,13 @@ export type GetAllPokemonQueryVariables = Exact<{
 
 export type GetAllPokemonQuery = { __typename?: 'query_root', pokemon_v2_pokemon: Array<{ __typename?: 'pokemon_v2_pokemon', id: number, name: string, height?: number | null }> };
 
+export type GetPokemonCountByTypeQueryVariables = Exact<{
+  where?: InputMaybe<Pokemon_V2_Pokemon_Bool_Exp>;
+}>;
+
+
+export type GetPokemonCountByTypeQuery = { __typename?: 'query_root', pokemon_v2_pokemon_aggregate: { __typename?: 'pokemon_v2_pokemon_aggregate', aggregate?: { __typename?: 'pokemon_v2_pokemon_aggregate_fields', count: number } | null } };
+
 
 export const GetAllPokemonDocument = gql`
     query GetAllPokemon($limit: Int!, $offset: Int, $where: pokemon_v2_pokemon_bool_exp) {
@@ -51766,6 +51773,43 @@ export function useGetAllPokemonLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetAllPokemonQueryHookResult = ReturnType<typeof useGetAllPokemonQuery>;
 export type GetAllPokemonLazyQueryHookResult = ReturnType<typeof useGetAllPokemonLazyQuery>;
 export type GetAllPokemonQueryResult = Apollo.QueryResult<GetAllPokemonQuery, GetAllPokemonQueryVariables>;
+export const GetPokemonCountByTypeDocument = gql`
+    query GetPokemonCountByType($where: pokemon_v2_pokemon_bool_exp) {
+  pokemon_v2_pokemon_aggregate(where: $where) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPokemonCountByTypeQuery__
+ *
+ * To run a query within a React component, call `useGetPokemonCountByTypeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPokemonCountByTypeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPokemonCountByTypeQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useGetPokemonCountByTypeQuery(baseOptions?: Apollo.QueryHookOptions<GetPokemonCountByTypeQuery, GetPokemonCountByTypeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPokemonCountByTypeQuery, GetPokemonCountByTypeQueryVariables>(GetPokemonCountByTypeDocument, options);
+      }
+export function useGetPokemonCountByTypeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPokemonCountByTypeQuery, GetPokemonCountByTypeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPokemonCountByTypeQuery, GetPokemonCountByTypeQueryVariables>(GetPokemonCountByTypeDocument, options);
+        }
+export type GetPokemonCountByTypeQueryHookResult = ReturnType<typeof useGetPokemonCountByTypeQuery>;
+export type GetPokemonCountByTypeLazyQueryHookResult = ReturnType<typeof useGetPokemonCountByTypeLazyQuery>;
+export type GetPokemonCountByTypeQueryResult = Apollo.QueryResult<GetPokemonCountByTypeQuery, GetPokemonCountByTypeQueryVariables>;
 
 /**
  * @param resolver a function that accepts a captured request and may return a mocked response.
@@ -51781,5 +51825,22 @@ export type GetAllPokemonQueryResult = Apollo.QueryResult<GetAllPokemonQuery, Ge
 export const mockGetAllPokemonQuery = (resolver: ResponseResolver<GraphQLRequest<GetAllPokemonQueryVariables>, GraphQLContext<GetAllPokemonQuery>, any>) =>
   graphql.query<GetAllPokemonQuery, GetAllPokemonQueryVariables>(
     'GetAllPokemon',
+    resolver
+  )
+
+/**
+ * @param resolver a function that accepts a captured request and may return a mocked response.
+ * @see https://mswjs.io/docs/basics/response-resolver
+ * @example
+ * mockGetPokemonCountByTypeQuery((req, res, ctx) => {
+ *   const { where } = req.variables;
+ *   return res(
+ *     ctx.data({ pokemon_v2_pokemon_aggregate })
+ *   )
+ * })
+ */
+export const mockGetPokemonCountByTypeQuery = (resolver: ResponseResolver<GraphQLRequest<GetPokemonCountByTypeQueryVariables>, GraphQLContext<GetPokemonCountByTypeQuery>, any>) =>
+  graphql.query<GetPokemonCountByTypeQuery, GetPokemonCountByTypeQueryVariables>(
+    'GetPokemonCountByType',
     resolver
   )
