@@ -81,9 +81,8 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest",
       "prettier",
-      "plugin:jest/all",
+      "plugin:jest/recommended",
       "plugin:jest-dom/recommended",
       "airbnb",
       "airbnb/hooks",
@@ -94,9 +93,20 @@
     ],
     "env": {
       "browser": true
-    }
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.ts",
+          "*.tsx"
+        ]
+      }
+    ],
+    "ignorePatterns": [
+      "src/generated/**"
+    ]
   },
-  "browserlist": [
+  "browserslist": [
     "defaults"
   ],
   "config": {
