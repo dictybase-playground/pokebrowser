@@ -1,11 +1,11 @@
 import { Typography, useTheme } from "@mui/material"
 import { ApolloError } from "@apollo/client"
 
-interface PokemonDisplayErrorProps {
+interface PokemonDisplayErrorProperties {
   error: ApolloError
 }
 
-export const PokemonDisplayError = ({ error }: PokemonDisplayErrorProps) => {
+const PokemonDisplayError = ({ error }: PokemonDisplayErrorProperties) => {
   const { palette } = useTheme()
 
   return (
@@ -14,3 +14,5 @@ export const PokemonDisplayError = ({ error }: PokemonDisplayErrorProps) => {
     </Typography>
   )
 }
+
+export { PokemonDisplayError }
