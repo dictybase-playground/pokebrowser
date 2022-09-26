@@ -1,3 +1,4 @@
+import React from "react"
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client"
 
 const client = new ApolloClient({
@@ -5,10 +6,12 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 })
 
-interface PokeProviderProps {
+interface PokeProviderProperties {
   children: React.ReactNode
 }
 
-export const PokeProvider = ({ children }: PokeProviderProps) => {
-  return <ApolloProvider client={client}>{children}</ApolloProvider>
-}
+const PokeProvider = ({ children }: PokeProviderProperties) => (
+  <ApolloProvider client={client}>{children}</ApolloProvider>
+)
+
+export default PokeProvider

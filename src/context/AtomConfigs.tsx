@@ -25,6 +25,8 @@ export const pokemonTypeOptions = [
   "fairy",
 ]
 
+export const currentPageAtom = atomWithImmer(1)
+
 export const pokemonLimitAtom = atom(
   pokemonLimitOptions[0],
   (get, set, update) => {
@@ -33,7 +35,7 @@ export const pokemonLimitAtom = atom(
   },
 )
 export const pokemonLimitIntAtom = atom((get) =>
-  parseInt(get(pokemonLimitAtom)),
+  Number.parseInt(get(pokemonLimitAtom), 10),
 )
 
 export const pokemonTypeAtom = atom(
@@ -43,8 +45,6 @@ export const pokemonTypeAtom = atom(
     set(currentPageAtom, 1)
   },
 )
-
-export const currentPageAtom = atomWithImmer(1)
 
 export const pokemonOffsetAtom = atom(
   (get) => get(pokemonLimitIntAtom) * (get(currentPageAtom) - 1),

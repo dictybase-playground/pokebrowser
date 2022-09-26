@@ -1,6 +1,7 @@
 import { GetAllPokemonQuery } from "../generated/graphql"
 
-export const mockPokemon: GetAllPokemonQuery = {
+const mockPokemon: GetAllPokemonQuery = {
+  // eslint-disable-next-line camelcase
   pokemon_v2_pokemon: [
     {
       __typename: "pokemon_v2_pokemon",
@@ -904,3 +905,5 @@ export const mockPokemon: GetAllPokemonQuery = {
     },
   ],
 }
+
+export default mockPokemon

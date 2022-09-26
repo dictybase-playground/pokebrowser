@@ -15,4 +15,4 @@ const PokemonDisplayError = ({ error }: PokemonDisplayErrorProperties) => {
   )
 }
 
-export { PokemonDisplayError }
+export default PokemonDisplayError

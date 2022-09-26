@@ -1,14 +1,16 @@
 import { render, screen } from "@testing-library/react"
-import { PokemonQuery } from "./PokemonQuery"
+import { ApolloError } from "@apollo/client"
 import {
   useGetAllPokemonQuery,
   useGetPokemonCountByTypeQuery,
 } from "../generated/graphql"
-import { ApolloError } from "@apollo/client"
-import { mockPokemon } from "../mock/mockPokemon"
+import PokemonQuery from "./PokemonQuery"
+import mockPokemon from "../mock/mockPokemon"
 
 jest.mock("../generated/graphql", () => {
+  // eslint-disable-next-line no-shadow
   const useGetAllPokemonQuery = jest.fn()
+  // eslint-disable-next-line no-shadow
   const useGetPokemonCountByTypeQuery = jest.fn()
   return { useGetAllPokemonQuery, useGetPokemonCountByTypeQuery }
 })
@@ -26,6 +28,7 @@ describe("PokemonQuery", () => {
       loading: false,
       error: false,
       data: {
+        // eslint-disable-next-line camelcase
         pokemon_v2_pokemon_aggregate: {
           aggregate: { count: mockPokemon.pokemon_v2_pokemon.length },
         },

@@ -8,11 +8,11 @@ import {
 import { useAtom } from "jotai"
 import { pokemonTypeAtom, pokemonTypeOptions } from "../context/AtomConfigs"
 
-export const PokemonTypeSelector = () => {
+const PokemonTypeSelector = () => {
   const [type, setType] = useAtom(pokemonTypeAtom)
 
-  const handleChange = (e: SelectChangeEvent) => {
-    setType(e.target.value)
+  const handleChange = (event: SelectChangeEvent) => {
+    setType(event.target.value)
   }
 
   return (
@@ -35,3 +35,5 @@ export const PokemonTypeSelector = () => {
     </FormControl>
   )
 }
+
+export default PokemonTypeSelector

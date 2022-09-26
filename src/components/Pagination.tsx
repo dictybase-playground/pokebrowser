@@ -7,7 +7,7 @@ import {
 } from "../context/AtomConfigs"
 import { useGetPokemonCountByTypeQuery } from "../generated/graphql"
 
-export const Pagination = () => {
+const Pagination = () => {
   const [currentPage, setCurrentPage] = useAtom(currentPageAtom)
   const [rowsPerPage] = useAtom(pokemonLimitIntAtom)
   const [type] = useAtom(pokemonTypeAtom)
@@ -17,9 +17,11 @@ export const Pagination = () => {
     variables: {
       where:
         type === "all"
-          ? null
+          ? undefined
           : {
+              //  eslint-disable-next-line camelcase
               pokemon_v2_pokemontypes: {
+                // eslint-disable-next-line camelcase
                 pokemon_v2_type: {
                   name: {
                     _eq: type,
@@ -40,20 +42,20 @@ export const Pagination = () => {
     setCurrentPage(Math.min(currentPage + 1, pageCount))
   }
 
-  const handlePrevPage = () => {
+  const handlePreviousPage = () => {
     setCurrentPage(Math.max(currentPage - 1, 1))
   }
 
   return (
     <Stack direction="row">
-      <Button onClick={handlePrevPage}> Prev </Button>
-      {loading ? <Button disabled> {`${currentPage} / ?`} </Button> : <></>}
+      <Button onClick={handlePreviousPage}> Prev </Button>
+      {loading ? <Button disabled> {`${currentPage} / ?`} </Button> : undefined}
       {data ? (
         <Button disabled> {`${currentPage} / ${pageCount}`} </Button>
-      ) : (
-        <></>
-      )}
+      ) : undefined}
       <Button onClick={handleNextPage}> Next </Button>
     </Stack>
   )
 }
+
+export default Pagination
