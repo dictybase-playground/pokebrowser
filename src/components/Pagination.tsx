@@ -6,6 +6,7 @@ import {
   pokemonTypeAtom,
 } from "../context/AtomConfigs"
 import { useGetPokemonCountByTypeQuery } from "../generated/graphql"
+import getPokemonCountByTypeVariables from "../common/queryVariables/PokemonCountByTypeVariables"
 
 const Pagination = () => {
   const [currentPage, setCurrentPage] = useAtom(currentPageAtom)
@@ -14,22 +15,7 @@ const Pagination = () => {
   let pageCount = 1
 
   const { data, loading } = useGetPokemonCountByTypeQuery({
-    variables: {
-      where:
-        type === "all"
-          ? undefined
-          : {
-              //  eslint-disable-next-line camelcase
-              pokemon_v2_pokemontypes: {
-                // eslint-disable-next-line camelcase
-                pokemon_v2_type: {
-                  name: {
-                    _eq: type,
-                  },
-                },
-              },
-            },
-    },
+    variables: getPokemonCountByTypeVariables(type),
   })
 
   if (data) {
