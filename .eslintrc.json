@@ -63,6 +63,10 @@
           "snakeCase": true
         }
       }
+    ],
+    "eslint-comments/no-use": [
+      "error",
+      { "allow": ["eslint-disable", "eslint-disable-next-line"] }
     ]
   }
 }
