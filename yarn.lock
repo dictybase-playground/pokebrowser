@@ -2447,6 +2447,11 @@
   resolved "https://registry.yarnpkg.com/@tsconfig/node16/-/node16-1.0.3.tgz#472eaab5f15c1ffdd7f8628bd4c4f753995ec79e"
   integrity sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==
 
+"@tsconfig/vite-react@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@tsconfig/vite-react/-/vite-react-1.0.1.tgz#2d2e4e90a9d2b299d4c332fa6c080d3ab36d47cb"
+  integrity sha512-6Tv0UI88QPSkNobzoI8tMXjHX1j723yPBhrQ+z+gphvTIj7KcH0KF1MjUlPrIgh5TEpRMH8jF5ezZ5qQ0iHGvw==
+
 "@types/aria-query@^4.2.0":
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-4.2.2.tgz#ed4e0ad92306a704f9fb132a0cfcf77486dbe2bc"
