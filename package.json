@@ -76,6 +76,9 @@
     },
     "setupFilesAfterEnv": [
       "<rootDir>/src/setUpTests.js"
+    ],
+    "modulePaths": [
+      "<rootDir>/src"
     ]
   },
   "prettier": {
