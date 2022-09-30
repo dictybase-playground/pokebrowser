@@ -4,8 +4,8 @@ import {
   pokemonLimitIntAtom,
   pokemonTypeAtom,
   pokemonOffsetAtom,
-} from "../context/AtomConfigs"
-import { useGetAllPokemonQuery } from "../generated/graphql"
+} from "context/AtomConfigs"
+import { useGetAllPokemonQuery } from "generated/graphql"
 import PokemonDisplayTable from "./PokemonDisplayTable"
 import PokemonDisplaySkeleton from "./PokemonDisplaySkeleton"
 import PokemonDisplayError from "./PokemonDisplayError"

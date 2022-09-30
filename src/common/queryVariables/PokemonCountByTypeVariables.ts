@@ -1,4 +1,4 @@
-import { GetPokemonCountByTypeQueryVariables } from "../../generated/graphql"
+import { GetPokemonCountByTypeQueryVariables } from "generated/graphql"
 
 const getPokemonCountByTypeVariables = (
   type: string,

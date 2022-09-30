@@ -3,9 +3,9 @@ import { ApolloError } from "@apollo/client"
 import {
   useGetAllPokemonQuery,
   useGetPokemonCountByTypeQuery,
-} from "../generated/graphql"
+} from "generated/graphql"
+import mockPokemon from "mock/mockPokemon"
 import PokemonQuery from "./PokemonQuery"
-import mockPokemon from "../mock/mockPokemon"
 
 jest.mock("../generated/graphql", () => {
   // eslint-disable-next-line no-shadow

@@ -6,7 +6,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material"
 import { useAtom } from "jotai"
-import { pokemonTypeAtom, pokemonTypeOptions } from "../context/AtomConfigs"
+import { pokemonTypeAtom, pokemonTypeOptions } from "context/AtomConfigs"
 
 const PokemonTypeSelector = () => {
   const [type, setType] = useAtom(pokemonTypeAtom)

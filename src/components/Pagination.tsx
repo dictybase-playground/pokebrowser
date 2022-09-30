@@ -4,9 +4,9 @@ import {
   currentPageAtom,
   pokemonLimitIntAtom,
   pokemonTypeAtom,
-} from "../context/AtomConfigs"
-import { useGetPokemonCountByTypeQuery } from "../generated/graphql"
-import getPokemonCountByTypeVariables from "../common/queryVariables/PokemonCountByTypeVariables"
+} from "context/AtomConfigs"
+import { useGetPokemonCountByTypeQuery } from "generated/graphql"
+import getPokemonCountByTypeVariables from "common/queryVariables/PokemonCountByTypeVariables"
 
 const Pagination = () => {
   const [currentPage, setCurrentPage] = useAtom(currentPageAtom)

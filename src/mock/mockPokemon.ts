@@ -1,4 +1,4 @@
-import { GetAllPokemonQuery } from "../generated/graphql"
+import { GetAllPokemonQuery } from "generated/graphql"
 
 const mockPokemon: GetAllPokemonQuery = {
   // eslint-disable-next-line camelcase

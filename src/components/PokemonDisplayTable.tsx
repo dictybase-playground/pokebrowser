@@ -7,7 +7,7 @@ import {
   TableRow,
   Paper,
 } from "@mui/material"
-import { GetAllPokemonQuery } from "../generated/graphql"
+import { GetAllPokemonQuery } from "generated/graphql"
 import PokemonDisplayRow from "./PokemonDisplayRow"
 
 interface PokemonDisplayTableProperties {

@@ -1,8 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import App from "./App"
-import PokeProvider from "./context/PokeProvider"
-import worker from "./mock/browser"
+import App from "App"
+import worker from "mock/browser"
+import PokeProvider from "context/PokeProvider"
 
 const main = async () => {
   if (import.meta.env.VITE_MOCK_SERVER === "on") {

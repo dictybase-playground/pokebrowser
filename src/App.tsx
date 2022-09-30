@@ -1,5 +1,5 @@
 import { Container, Typography } from "@mui/material"
-import PokemonQuery from "./components/PokemonQuery"
+import PokemonQuery from "components/PokemonQuery"
 
 const App = () => (
   <Container className="App">

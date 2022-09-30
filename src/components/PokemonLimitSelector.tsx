@@ -6,7 +6,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material"
 import { useAtom } from "jotai"
-import { pokemonLimitAtom, pokemonLimitOptions } from "../context/AtomConfigs"
+import { pokemonLimitAtom, pokemonLimitOptions } from "context/AtomConfigs"
 
 const PokemonLimitSelector = () => {
   const [limit, setLimit] = useAtom(pokemonLimitAtom)

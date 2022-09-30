@@ -1,6 +1,6 @@
 import { TableRow, TableCell } from "@mui/material"
 // eslint-disable-next-line camelcase
-import { Pokemon_V2_Pokemon } from "../generated/graphql"
+import { Pokemon_V2_Pokemon } from "generated/graphql"
 
 interface PokemonDisplayRowProperties {
   pokemon: {
