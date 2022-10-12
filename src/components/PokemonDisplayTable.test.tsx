@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
-import { PokemonDisplayTable } from "./PokemonDisplayTable"
-import { GetAllPokemonQuery } from "../generated/graphql"
+import { GetAllPokemonQuery } from "generated/graphql"
+import PokemonDisplayTable from "./PokemonDisplayTable"
 
 const testPokemonArray: GetAllPokemonQuery["pokemon_v2_pokemon"] = [
   {

@@ -6,13 +6,13 @@ import {
   SelectChangeEvent,
 } from "@mui/material"
 import { useAtom } from "jotai"
-import { pokemonLimitAtom, pokemonLimitOptions } from "../context/AtomConfigs"
+import { pokemonLimitAtom, pokemonLimitOptions } from "context/AtomConfigs"
 
-export const PokemonLimitSelector = () => {
+const PokemonLimitSelector = () => {
   const [limit, setLimit] = useAtom(pokemonLimitAtom)
 
-  const handleChange = (e: SelectChangeEvent) => {
-    setLimit(e.target.value)
+  const handleChange = (event: SelectChangeEvent) => {
+    setLimit(event.target.value)
   }
 
   return (
@@ -35,3 +35,5 @@ export const PokemonLimitSelector = () => {
     </FormControl>
   )
 }
+
+export default PokemonLimitSelector

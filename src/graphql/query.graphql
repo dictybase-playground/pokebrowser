@@ -9,3 +9,11 @@ query GetAllPokemon(
     height
   }
 }
+
+query GetPokemonCountByType($where: pokemon_v2_pokemon_bool_exp) {
+  pokemon_v2_pokemon_aggregate(where: $where) {
+    aggregate {
+      count
+    }
+  }
+}

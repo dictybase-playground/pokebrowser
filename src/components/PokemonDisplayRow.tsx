@@ -1,20 +1,24 @@
 import { TableRow, TableCell } from "@mui/material"
-import { Pokemon_V2_Pokemon } from "../generated/graphql"
+// eslint-disable-next-line camelcase
+import { Pokemon_V2_Pokemon } from "generated/graphql"
 
-interface PokemonDisplayRowProps {
+interface PokemonDisplayRowProperties {
   pokemon: {
+    // eslint-disable-next-line camelcase
     id: Pokemon_V2_Pokemon["id"]
+    // eslint-disable-next-line camelcase
     name: Pokemon_V2_Pokemon["name"]
+    // eslint-disable-next-line camelcase
     height?: Pokemon_V2_Pokemon["height"]
   }
 }
 
-export const PokemonDisplayRow = ({ pokemon }: PokemonDisplayRowProps) => {
-  return (
-    <TableRow>
-      <TableCell>{pokemon.id}</TableCell>
-      <TableCell>{pokemon.name}</TableCell>
-      <TableCell>{pokemon.height}</TableCell>
-    </TableRow>
-  )
-}
+const PokemonDisplayRow = ({ pokemon }: PokemonDisplayRowProperties) => (
+  <TableRow>
+    <TableCell>{pokemon.id}</TableCell>
+    <TableCell>{pokemon.name}</TableCell>
+    <TableCell>{pokemon.height}</TableCell>
+  </TableRow>
+)
+
+export default PokemonDisplayRow

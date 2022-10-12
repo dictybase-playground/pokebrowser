@@ -1,12 +1,18 @@
 import { render, screen } from "@testing-library/react"
-import { PokemonQuery } from "./PokemonQuery"
-import { useGetAllPokemonQuery } from "../generated/graphql"
 import { ApolloError } from "@apollo/client"
-import { mockPokemon } from "../mock/mockPokemon"
+import {
+  useGetAllPokemonQuery,
+  useGetPokemonCountByTypeQuery,
+} from "generated/graphql"
+import mockPokemon from "mock/mockPokemon"
+import PokemonQuery from "./PokemonQuery"
 
 jest.mock("../generated/graphql", () => {
+  // eslint-disable-next-line no-shadow
   const useGetAllPokemonQuery = jest.fn()
-  return { useGetAllPokemonQuery }
+  // eslint-disable-next-line no-shadow
+  const useGetPokemonCountByTypeQuery = jest.fn()
+  return { useGetAllPokemonQuery, useGetPokemonCountByTypeQuery }
 })
 
 describe("PokemonQuery", () => {
@@ -17,6 +23,16 @@ describe("PokemonQuery", () => {
       loading: false,
       error: false,
       data: mockPokemon,
+    })
+    ;(useGetPokemonCountByTypeQuery as jest.Mock).mockReturnValue({
+      loading: false,
+      error: false,
+      data: {
+        // eslint-disable-next-line camelcase
+        pokemon_v2_pokemon_aggregate: {
+          aggregate: { count: mockPokemon.pokemon_v2_pokemon.length },
+        },
+      },
     })
 
     render(<PokemonQuery />)
@@ -29,6 +45,9 @@ describe("PokemonQuery", () => {
     ;(useGetAllPokemonQuery as jest.Mock).mockReturnValue({
       loading: true,
     })
+    ;(useGetPokemonCountByTypeQuery as jest.Mock).mockReturnValue({
+      loading: true,
+    })
 
     render(<PokemonQuery />)
     expect(screen.getByTestId("skeleton-loader")).toBeInTheDocument()
@@ -36,6 +55,9 @@ describe("PokemonQuery", () => {
 
   it("renders an error state if Pokemon data fails to load", () => {
     ;(useGetAllPokemonQuery as jest.Mock).mockReturnValue({
+      error: new ApolloError({}),
+    })
+    ;(useGetPokemonCountByTypeQuery as jest.Mock).mockReturnValue({
       error: new ApolloError({}),
     })
 
