@@ -1,5 +1,5 @@
 import React from "react"
-import ReactDOM from "react-dom/client"
+import ReactDOM from "react-dom"
 import App from "App"
 import worker from "mock/browser"
 import PokeProvider from "context/PokeProvider"
@@ -10,12 +10,13 @@ const main = async () => {
   }
 }
 
-ReactDOM.createRoot(document.querySelector("#root") as HTMLElement).render(
+ReactDOM.render(
   <React.StrictMode>
     <PokeProvider>
       <App />
     </PokeProvider>
   </React.StrictMode>,
+  document.querySelector("#root"),
 )
 
 main()
