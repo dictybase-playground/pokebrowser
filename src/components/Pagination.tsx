@@ -12,17 +12,15 @@ const Pagination = () => {
   const [currentPage, setCurrentPage] = useAtom(currentPageAtom)
   const [rowsPerPage] = useAtom(pokemonLimitIntAtom)
   const [type] = useAtom(pokemonTypeAtom)
-  let pageCount = 1
 
   const { data, loading } = useGetPokemonCountByTypeQuery({
     variables: getPokemonCountByTypeVariables(type),
   })
 
-  if (data) {
-    const pokemonCount =
-      data.pokemon_v2_pokemon_aggregate.aggregate?.count || rowsPerPage
-    pageCount = Math.ceil(pokemonCount / rowsPerPage)
-  }
+  const pokemonCount =
+    data?.pokemon_v2_pokemon_aggregate.aggregate?.count || rowsPerPage
+
+  const pageCount = Math.ceil(pokemonCount / rowsPerPage)
 
   const handleNextPage = () => {
     setCurrentPage(Math.min(currentPage + 1, pageCount))
